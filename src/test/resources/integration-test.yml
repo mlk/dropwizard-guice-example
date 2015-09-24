@@ -18,7 +18,7 @@ database:
   password: test
 
   # the JDBC URL
-  url: jdbc:derby:unti-test-database;create=true
+  url: jdbc:derby:unit-test-database;create=true
 
   # any properties specific to your JDBC driver:
   properties:

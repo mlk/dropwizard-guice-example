@@ -14,5 +14,5 @@ The primary goal of this repo is to help me to get my head round using Dropwizar
 
 ```
 mvn clean package
-java -jar target/hello-guice-*-SNAPSHOT.jar server hello-world.yml
+java -jar target/hello-guice-*.jar server hello-world.yml
 ```

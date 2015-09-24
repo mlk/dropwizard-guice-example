@@ -6,17 +6,27 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class HelloWorldConfiguration extends Configuration {
     @NotEmpty
-    @JsonProperty
     private String template;
 
     @NotEmpty
-    @JsonProperty
     private String defaultName = "Stranger";
 
+    @JsonProperty
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    @JsonProperty
+    public void setDefaultName(String defaultName) {
+        this.defaultName = defaultName;
+    }
+
+    @JsonProperty
     public String getTemplate() {
         return template;
     }
 
+    @JsonProperty
     public String getDefaultName() {
         return defaultName;
     }

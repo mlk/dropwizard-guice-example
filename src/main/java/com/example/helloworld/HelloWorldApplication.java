@@ -1,9 +1,11 @@
 package com.example.helloworld;
 
+import com.example.helloworld.health.TemplateHealthCheck;
+import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import com.hubspot.dropwizard.guice.GuiceBundle;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
@@ -11,10 +13,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 		new HelloWorldApplication().run(args);
 	}
 
+    private GuiceBundle<HelloWorldConfiguration> guiceBundle = null;
+
 	@Override
 	public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
+		bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
 
-		GuiceBundle<HelloWorldConfiguration> guiceBundle = GuiceBundle.<HelloWorldConfiguration>newBuilder()
+        guiceBundle = GuiceBundle.<HelloWorldConfiguration>newBuilder()
 				.addModule(new HelloWorldModule())
 				.enableAutoConfig(getClass().getPackage().getName())
 				.setConfigClass(HelloWorldConfiguration.class)
@@ -30,5 +35,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public void run(HelloWorldConfiguration helloWorldConfiguration, Environment environment) throws Exception {
+        environment.healthChecks().register("template", guiceBundle.getInjector().getInstance(TemplateHealthCheck.class));
     }
 }

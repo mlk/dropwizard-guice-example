@@ -1,9 +1,9 @@
 package com.example.helloworld;
 
-import javax.inject.Named;
-
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+
+import javax.inject.Named;
 
 public class HelloWorldModule extends AbstractModule {
 	
@@ -21,7 +21,7 @@ public class HelloWorldModule extends AbstractModule {
 	@Provides
 	@Named("defaultName")
 	public String provideDefaultName(HelloWorldConfiguration configuration) {
-		return configuration.getDefaultName();
+        return configuration.getDefaultName();
 	}
 
 }

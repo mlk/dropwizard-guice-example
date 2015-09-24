@@ -1,6 +1,8 @@
-template: Hello, %s!
+
 defaultName: Stranger
+template: Hello, %s!
 
 server:
-  type: simple
-  applicationContextPath: /v1
+  type: default
+  rootPath: '/api/*'
+  applicationContextPath: /

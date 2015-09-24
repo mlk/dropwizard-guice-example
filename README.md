@@ -1,7 +1,15 @@
 dropwizard-guice-example
 ========================
 
-A complete dropwizard example for using Guice.
+This is an example of using Dropwizard with:
+
+ * Google Guice (4.0)
+ * Static Resources 
+ * Project Lombok
+
+
+Largely as this caused me a lot of head bashing. 
+
 
 ```
 mvn clean package

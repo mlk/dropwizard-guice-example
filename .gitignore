@@ -6,4 +6,4 @@ bin/
 .idea
 derby.log
 local-database/
-unit-test-database
+unit-test-database/

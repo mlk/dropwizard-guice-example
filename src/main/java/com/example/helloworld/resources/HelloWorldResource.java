@@ -5,8 +5,6 @@ import com.example.helloworld.core.Saying;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.sun.jersey.api.core.HttpContext;
-import com.sun.jersey.api.core.HttpRequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +13,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import java.util.concurrent.atomic.AtomicLong;
@@ -32,9 +29,6 @@ public class HelloWorldResource {
     private final HttpHeaders headers;
 
     @Inject
-    private HttpRequestContext ctx;
-
-    @Inject
     public HelloWorldResource(@Named("template") String template, @Named("defaultName") String defaultName, HttpHeaders headers) {
     	logger.info("Creating a new HelloWorldResource!");
         this.template = template;
@@ -45,9 +39,8 @@ public class HelloWorldResource {
 
     @GET
     @Timed
-    public Saying sayHello(@QueryParam("name") Optional<String> name, @Context HttpContext context) {
+    public Saying sayHello(@QueryParam("name") Optional<String> name) {
     	logger.info("User-Agent: " + headers.getRequestHeader("User-Agent"));
-    	logger.info(Integer.toString(ctx.hashCode()));
         return new Saying(counter.incrementAndGet(),
                           String.format(template, name.or(defaultName)));
     }

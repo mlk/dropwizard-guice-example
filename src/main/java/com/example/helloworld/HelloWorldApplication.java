@@ -1,9 +1,12 @@
 package com.example.helloworld;
 
+import com.example.helloworld.core.Saying;
 import com.example.helloworld.health.TemplateHealthCheck;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -13,14 +16,24 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 		new HelloWorldApplication().run(args);
 	}
 
+
+    private final HibernateBundle<HelloWorldConfiguration> hibernate = new HibernateBundle<HelloWorldConfiguration>(Saying.class) {
+        @Override
+        public DataSourceFactory getDataSourceFactory(HelloWorldConfiguration configuration) {
+            return configuration.getDatabase();
+        }
+    };
+
     private GuiceBundle<HelloWorldConfiguration> guiceBundle = null;
 
 	@Override
 	public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
 		bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
 
+        bootstrap.addBundle(hibernate);
+
         guiceBundle = GuiceBundle.<HelloWorldConfiguration>newBuilder()
-				.addModule(new HelloWorldModule())
+				.addModule(new HelloWorldModule(hibernate))
 				.enableAutoConfig(getClass().getPackage().getName())
 				.setConfigClass(HelloWorldConfiguration.class)
 				.build();

@@ -1,10 +1,21 @@
 package com.example.helloworld.core;
 
 import lombok.AllArgsConstructor;
-import lombok.Value;
+import lombok.Data;
 
-@Value @AllArgsConstructor
+import javax.persistence.*;
+
+@Data @AllArgsConstructor @Entity @Table(name = "sayings")
 public class Saying {
-    private final long id;
-    private final String content;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String content;
+
+    public Saying() {
+    }
+
+    public Saying(String content) {
+        this.content = content;
+    }
 }

@@ -6,9 +6,10 @@ This is an example of using Dropwizard with:
  * Google Guice (4.0)
  * Static Resources 
  * Project Lombok
+ * Hibernate (using Derby as the data store)
 
 
-Largely as this caused me a lot of head bashing. 
+The primary goal of this repo is to help me to get my head round using Dropwizard with Guice. 
 
 
 ```

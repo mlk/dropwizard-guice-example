@@ -1,12 +1,13 @@
 package com.example.helloworld.resources;
 
 import com.example.helloworld.core.Saying;
-import com.example.helloworld.services.IdService;
+import com.example.helloworld.services.SayingDao;
 import com.google.common.base.Optional;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -14,8 +15,8 @@ public class HelloWorldResourceTest {
 
     @Test
     public void whenNameIsAbsentThenUseTheDefaultName() {
-        IdService service = mock(IdService.class);
-        when(service.nextId()).thenReturn(123L);
+        SayingDao service = mock(SayingDao.class);
+        when(service.persist((Saying)anyObject())).thenAnswer(new SetSayingIdAnswer(123));
 
         HelloWorldResource subject = new HelloWorldResource("template %s", "defaultName", service);
 
@@ -28,8 +29,8 @@ public class HelloWorldResourceTest {
 
     @Test
     public void whenNamePresentThenUseTheGivenName() {
-        IdService service = mock(IdService.class);
-        when(service.nextId()).thenReturn(1234L);
+        SayingDao service = mock(SayingDao.class);
+        when(service.persist((Saying)anyObject())).thenAnswer(new SetSayingIdAnswer(1234));
 
         HelloWorldResource subject = new HelloWorldResource("template %s", "defaultName", service);
 

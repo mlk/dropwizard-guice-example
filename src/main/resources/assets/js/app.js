@@ -1,16 +1,21 @@
-var app = angular.module('app', []);
+'use strict';
 
-app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.name = "";
-    $scope.message = "click the squirrel";
-    $scope.squirrel = function() {
-        data = ""
-        if($scope.name) {
-            data = "name=" + encodeURIComponent($scope.name);
-        }
-        $http.post('/api/hello-world', data, { headers: {'Content-Type': 'application/x-www-form-urlencoded'} })
-                   .then(function(res){
-                        $scope.message = res.data.content;
-                    });
-    }
+var app = angular.module('app', [
+    'ui.router',
+    'app.MainController'
+]);
+
+app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider, $stateProvider) {
+    $urlRouteProvider.otherwise('/');
+
+    $stateProvider.state('home', {
+        url: '/',
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl',
+    });
 }]);
+
+//Required to pass the view state back to the display page (for top nav mainly)
+app.run(function ($state,$rootScope, $log) {
+   $rootScope.$state = $state;
+});

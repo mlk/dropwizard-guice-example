@@ -11,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -36,15 +33,14 @@ public class HelloWorldResource {
         this.sayingDao = sayingDao;
     }
 
-    @GET
+    @POST
     @Timed
     @UnitOfWork
-    public Saying sayHello(@QueryParam("name") Optional<String> name) {
+    public Saying sayHello(@FormParam("name") Optional<String> name) {
         return sayingDao.persist(new Saying(String.format(template, name.or(defaultName))));
     }
 
     @GET
-    @Path("/all")
     @Timed
     @UnitOfWork
     public List<Saying> getAllPrevious() {

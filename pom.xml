@@ -10,7 +10,6 @@
         <dropwizard.version>0.8.1</dropwizard.version>
         <guice.version>4.0</guice.version>
         <dropwizard.guice.version>0.8.1.1</dropwizard.guice.version>
-
     </properties>
 
 

@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
@@ -32,7 +34,7 @@ public class ApiIntegrationTest {
         Response response = client.target(
                 String.format("http://localhost:%d/api/hello-world", RULE.getLocalPort()))
                 .request()
-                .get();
+                .post(Entity.form(new Form()));
 
         Saying actual = response.readEntity(Saying.class);
 
@@ -41,13 +43,28 @@ public class ApiIntegrationTest {
     }
 
     @Test
+    public void whenNameIsGivenThenWarmlyGreetByName() {
+        Client client = ClientBuilder.newClient();
+
+        Response response = client.target(
+                String.format("http://localhost:%d/api/hello-world", RULE.getLocalPort()))
+                .request()
+                .post(Entity.form(new Form().param("name", "John")));
+
+        Saying actual = response.readEntity(Saying.class);
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(actual.getContent()).isEqualToIgnoringCase("Hello, John!");
+    }
+
+    @Test
     public void whenHelloWorldIsCalledThenStoreTheGreetings() {
         Client client = ClientBuilder.newClient();
         assumeThat(client.target(String.format("http://localhost:%d/api/hello-world", RULE.getLocalPort()))
                 .request()
-                .get().getStatus(), is(200));
+                .post(Entity.form(new Form())).getStatus(), is(200));
 
-        Response response = client.target(String.format("http://localhost:%d/api/hello-world/all", RULE.getLocalPort()))
+        Response response = client.target(String.format("http://localhost:%d/api/hello-world", RULE.getLocalPort()))
                 .request()
                 .get();
 

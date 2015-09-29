@@ -2,7 +2,8 @@
 
 var app = angular.module('app', [
     'ui.router',
-    'app.MainController'
+    'app.MainController',
+    'app.WebsocketsController'
 ]);
 
 app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider, $stateProvider) {

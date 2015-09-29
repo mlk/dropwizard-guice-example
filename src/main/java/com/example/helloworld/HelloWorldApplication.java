@@ -9,6 +9,7 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.eclipse.jetty.servlet.ServletHolder;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
@@ -49,5 +50,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     @Override
     public void run(HelloWorldConfiguration helloWorldConfiguration, Environment environment) throws Exception {
         environment.healthChecks().register("template", guiceBundle.getInjector().getInstance(TemplateHealthCheck.class));
+        environment.getApplicationContext().addServlet(new ServletHolder(guiceBundle.getInjector().getInstance(ExampleHttpServlet.class)), "/legacy/servlet");
+
     }
 }

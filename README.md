@@ -7,6 +7,7 @@ This is an example of using Dropwizard with:
  * Static Resources 
  * Project Lombok
  * Hibernate (using Derby as the data store)
+ * Serving legacy servlets.
 
 
 The primary goal of this repo is to help me to get my head round using Dropwizard with Guice. 

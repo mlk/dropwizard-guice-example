@@ -1,0 +1,15 @@
+<input type="text" ng-model="name">
+<img src="img/mlk-git-avatar.png" ng-click="squirrel();"/>
+        <div>{{message}}</div>
+        
+
+    <h1>Whats going on?</h1>
+    <p>
+        When you click the squirrel you are performing a <code>POST</code> to <code>/api/hello-world</code>.
+        This is backed by the Jersey resource <code>HelloWorldResource</code>, which creates a Saying object and asks
+        <code>SayingDao</code> to save it. The DAO then using Hibernate to save the object. Once saved the Saying domain
+        object is returned and displayed.
+    </p>
+    <p>
+        You can see all the "hello"s said by doing a <code>GET</code> to <code><a href="/api/hello-world">/api/hello-world</a></code>.
+    </p>

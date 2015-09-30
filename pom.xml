@@ -7,6 +7,8 @@
 
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <dropwizard.version>0.8.1</dropwizard.version>
         <guice.version>4.0</guice.version>
         <jquery.version>2.1.1</jquery.version>

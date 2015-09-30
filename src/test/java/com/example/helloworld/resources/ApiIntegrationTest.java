@@ -39,7 +39,7 @@ public class ApiIntegrationTest {
         String actual = response.readEntity(String.class);
 
         assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(actual).isEqualToIgnoringCase("hello world");
+        assertThat(actual).startsWith("Hello");
     }
 
     @Test

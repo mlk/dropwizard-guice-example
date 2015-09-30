@@ -2,7 +2,8 @@
 
 var app = angular.module('app', [
     'ui.router',
-    'app.MainController'
+    'app.MainController',
+    'app.LegacyController'
 ]);
 
 app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider, $stateProvider) {
@@ -13,6 +14,11 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider,
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
     });
+        $stateProvider.state('legacy', {
+            url: '/legacy',
+            templateUrl: 'views/legacy.html',
+            controller: 'LegacyCtrl',
+        });
 }]);
 
 //Required to pass the view state back to the display page (for top nav mainly)

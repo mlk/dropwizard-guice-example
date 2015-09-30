@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import com.example.helloworld.core.Saying;
 import com.example.helloworld.health.TemplateHealthCheck;
+import com.example.helloworld.legacy.ExampleHttpServlet;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;

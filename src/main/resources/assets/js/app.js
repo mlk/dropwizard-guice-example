@@ -1,35 +1,21 @@
-var app = angular.module('app', []);
+'use strict';
 
-app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.name = "";
-    $scope.message = "click the squirrel";
+var app = angular.module('app', [
+    'ui.router',
+    'app.MainController'
+]);
 
-     socket = new WebSocket("ws://localhost:8080/ws/");
+app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider, $stateProvider) {
+    $urlRouteProvider.otherwise('/');
 
-     socket.onopen = function() {
-        console.log("Connected!");
-        $status.prepend("<p>Connected websocket!</p>");
-     };
-
-     socket.onclose = function() {
-        console.log("Closed!");
-        $status.prepend("<p>Closed websocket</p>");
-     };
-
-     socket.onmessage = function(msg) {
-        console.log("Gots message", msg, this);
-        alert(msg.data);
-     };
-
-
-    $scope.squirrel = function() {
-        data = ""
-        if($scope.name) {
-            data = "name=" + encodeURIComponent($scope.name);
-        }
-        $http.post('/api/hello-world', data, { headers: {'Content-Type': 'application/x-www-form-urlencoded'} })
-                   .then(function(res){
-                        $scope.message = res.data.content;
-                    });
-    }
+    $stateProvider.state('home', {
+        url: '/',
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl',
+    });
 }]);
+
+//Required to pass the view state back to the display page (for top nav mainly)
+app.run(function ($state,$rootScope, $log) {
+   $rootScope.$state = $state;
+});

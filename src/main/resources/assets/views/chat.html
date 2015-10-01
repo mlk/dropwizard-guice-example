@@ -1,0 +1,42 @@
+<div>
+    <div id="header">
+        <h3 data-ng-bind="model.header" data-ng-init="model.header='Chat message'"></h3>
+    </div>
+    <p data-ng-show="!model.connected">Connecting...</p>
+    <div class="container">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" class="" id="input" data-ng-disabled="!model.connected" x-webkit-speech/>
+                    <span class="input-group-btn">
+                        <input type="button" class="btn btn-primary" id="inputSend" data-ng-disabled="!model.connected" value="Send">
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Messages</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="messages">
+                        <p data-ng-repeat="messagePayload in model.messages">
+                            <span class="time">{{messagePayload.date | date:'shortDate'}} {{messagePayload.date|date:'shortTime'}}</span>
+                            <span class="payload">{{messagePayload.text}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <h1>Whats going on?</h1>
+    <p>
+        When you click the send button (or press enter) you are performing a websocket <code>PUSH</code> to <code>/chat</code>.
+        This is backed by the resource <code>HelloWorldChatResource</code>, which implements an Atmosphere <code>handler</code>
+        that decodes the <code>JSON</code> representation to a Java class and re-broadcasts it to all listeners as <code>JSON</code>.
+    </p>

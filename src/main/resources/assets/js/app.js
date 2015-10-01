@@ -2,7 +2,9 @@
 
 var app = angular.module('app', [
     'ui.router',
-    'app.MainController'
+    'angular.atmosphere',
+    'app.MainController',
+    'app.ChatController'
 ]);
 
 app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider, $stateProvider) {
@@ -12,6 +14,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider,
         url: '/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
+    }).state('chat', {
+          url: '/chatpage',
+          templateUrl: 'views/chat.html',
+          controller: 'ChatCtrl'
     });
 }]);
 

@@ -1,10 +1,13 @@
 <!doctype html>
 <html ng-app="app">
 <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"/>
     <script src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/atmosphere/2.2.9/atmosphere.js"></script>
+    <script src="//spyboost.github.io/angular-atmosphere/service/angular-atmosphere-service.js"></script>
+
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.css">
@@ -12,6 +15,7 @@
     <!-- Demo app scripts -->
     <script src="js/app.js"></script>
     <script src="js/controllers/MainCtrl.js"></script>
+    <script src="js/controllers/ChatCtrl.js"></script>
 </head>
 <body>
 
@@ -32,6 +36,9 @@
                         <ul class="nav navbar-nav">
                             <li ui-sref-active="active">
                                 <a ui-sref="home">Main</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="chat">Chat Example</a>
                             </li>
                         </ul>
                     </div>

@@ -4,7 +4,8 @@ var app = angular.module('app', [
     'ui.router',
     'angular.atmosphere',
     'app.MainController',
-    'app.ChatController'
+    'app.ChatController',
+    'app.LegacyController'
 ]);
 
 app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider, $stateProvider) {
@@ -18,7 +19,11 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider,
           url: '/chatpage',
           templateUrl: 'views/chat.html',
           controller: 'ChatCtrl'
-    });
+    }).state('legacy', {
+            url: '/legacy',
+            templateUrl: 'views/legacy.html',
+            controller: 'LegacyCtrl',
+        });
 }]);
 
 //Required to pass the view state back to the display page (for top nav mainly)

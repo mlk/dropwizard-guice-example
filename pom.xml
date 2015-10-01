@@ -7,7 +7,8 @@
 
 
     <properties>
-        <!-- If you change dropwizard version you MUST change the jetty reference in the Atmosphere section
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- If you change dropwizard version you MUST change the jetty reference in the Atmosphere section
             use: mvn dependency:tree
             to discover the exact jetty version used in any new version of DropWizard.
         -->

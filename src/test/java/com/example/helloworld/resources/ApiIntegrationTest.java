@@ -28,6 +28,21 @@ public class ApiIntegrationTest {
                     ResourceHelpers.resourceFilePath("integration-test.yml"));
 
     @Test
+    public void whenLegacyServletCalledThenItIsUsed() {
+        Client client = ClientBuilder.newClient();
+
+        Response response = client.target(
+                String.format("http://localhost:%d/legacy/servlet", RULE.getLocalPort()))
+                .request()
+                .get();
+
+        String actual = response.readEntity(String.class);
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(actual).startsWith("Hello");
+    }
+
+    @Test
     public void whenHelloWorldIsCalledThenWarmlyGreetTheUser() {
         Client client = ClientBuilder.newClient();
 
@@ -73,6 +88,5 @@ public class ApiIntegrationTest {
 
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(actual).isEqualTo(expected);
-
     }
 }

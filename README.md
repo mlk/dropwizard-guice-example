@@ -7,6 +7,7 @@ This is an example of using Dropwizard with:
  * Static Resources 
  * Project Lombok
  * Hibernate (using Derby as the data store)
+ * Serving legacy servlets.
 
 
 The primary goal of this repo is to help me to get my head round using Dropwizard with Guice. 
@@ -16,3 +17,5 @@ The primary goal of this repo is to help me to get my head round using Dropwizar
 mvn clean package
 java -jar target/hello-guice-*.jar server hello-world.yml
 ```
+
+[![Build Status](https://travis-ci.org/mlk/dropwizard-guice-example.svg?branch=master)](https://travis-ci.org/mlk/dropwizard-guice-example)

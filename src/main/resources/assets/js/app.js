@@ -2,7 +2,9 @@
 
 var app = angular.module('app', [
     'ui.router',
+    'angular.atmosphere',
     'app.MainController',
+    'app.ChatController',
     'app.LegacyController'
 ]);
 
@@ -13,8 +15,11 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouteProvider,
         url: '/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-    });
-        $stateProvider.state('legacy', {
+    }).state('chat', {
+          url: '/chatpage',
+          templateUrl: 'views/chat.html',
+          controller: 'ChatCtrl'
+    }).state('legacy', {
             url: '/legacy',
             templateUrl: 'views/legacy.html',
             controller: 'LegacyCtrl',

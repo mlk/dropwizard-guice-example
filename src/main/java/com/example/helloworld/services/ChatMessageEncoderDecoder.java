@@ -7,10 +7,6 @@ import org.atmosphere.config.managed.Encoder;
 
 import java.io.IOException;
 
-/**
- * Created by Chris on 01/10/2015.
- */
-
 public final class ChatMessageEncoderDecoder implements Encoder<ChatMessage, String>, Decoder<String, ChatMessage> {
     private final ObjectMapper mapper = new ObjectMapper();
 

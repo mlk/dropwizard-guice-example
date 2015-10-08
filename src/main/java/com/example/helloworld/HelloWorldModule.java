@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 
 import javax.inject.Named;
 
-public class HelloWorldModule extends AbstractModule {
+class HelloWorldModule extends AbstractModule {
 	private final HibernateBundle<HelloWorldConfiguration> hibernateBundle;
 
     public HelloWorldModule(HibernateBundle<HelloWorldConfiguration> hibernateBundle) {

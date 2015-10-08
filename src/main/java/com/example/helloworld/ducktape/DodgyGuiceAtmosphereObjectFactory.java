@@ -32,7 +32,7 @@ public class DodgyGuiceAtmosphereObjectFactory implements AtmosphereObjectFactor
             return guiceBundle.getInjector().getInstance(defaultType);
         }
 
-        return (T) originalFactory.newClassInstance(classType, defaultType);
+        return originalFactory.newClassInstance(classType, defaultType);
     }
 
     @Override

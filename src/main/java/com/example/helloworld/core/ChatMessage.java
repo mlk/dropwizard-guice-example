@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-/**
- * Created by Chris on 01/10/2015.
- */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

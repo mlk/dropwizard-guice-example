@@ -13,11 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.io.IOException;
 
-/**
- * Created by Chris on 01/10/2015.
- */
 @ManagedService(path = "/chat")
 public final class HelloWorldChatResource {
     private static final Logger logger = LoggerFactory.getLogger(ChatMessage.class);
@@ -62,7 +58,7 @@ public final class HelloWorldChatResource {
      * @throws IOException
      */
     @Message(encoders = {ChatMessageEncoderDecoder.class}, decoders = {ChatMessageEncoderDecoder.class})
-    public final ChatMessage onMessage(final ChatMessage message) throws IOException{
+    public final ChatMessage onMessage(final ChatMessage message) {
         logger.info("{} just send {}", message.getOriginatingSystem(), message.getMessagePayload());
         message.setMessagePayload(counterService.next() + " - " + message.getMessagePayload());
         return message;

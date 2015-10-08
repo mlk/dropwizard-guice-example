@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class ExampleHttpServlet extends HttpServlet {
-    private CounterService counterService;
+    private final CounterService counterService;
 
     @Inject
     public ExampleHttpServlet(CounterService counterService) {

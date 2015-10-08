@@ -16,7 +16,7 @@ public class HelloWorldResourceTest {
     @Test
     public void whenNameIsAbsentThenUseTheDefaultName() {
         SayingDao service = mock(SayingDao.class);
-        when(service.persist((Saying)anyObject())).thenAnswer(new SetSayingIdAnswer(123));
+        when(service.persist(anyObject())).thenAnswer(new SetSayingIdAnswer(123));
 
         HelloWorldResource subject = new HelloWorldResource("template %s", "defaultName", service);
 
@@ -30,7 +30,7 @@ public class HelloWorldResourceTest {
     @Test
     public void whenNamePresentThenUseTheGivenName() {
         SayingDao service = mock(SayingDao.class);
-        when(service.persist((Saying)anyObject())).thenAnswer(new SetSayingIdAnswer(1234));
+        when(service.persist(anyObject())).thenAnswer(new SetSayingIdAnswer(1234));
 
         HelloWorldResource subject = new HelloWorldResource("template %s", "defaultName", service);
 

@@ -4,7 +4,7 @@ import com.example.helloworld.core.Saying;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-public class SetSayingIdAnswer implements Answer<Saying> {
+class SetSayingIdAnswer implements Answer<Saying> {
     private final long id;
 
     public SetSayingIdAnswer(long id) {

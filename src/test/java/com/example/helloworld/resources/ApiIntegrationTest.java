@@ -23,7 +23,7 @@ import static org.junit.Assume.assumeThat;
 
 public class ApiIntegrationTest {
     @Rule
-    public DropwizardAppRule<HelloWorldConfiguration> RULE =
+    public final DropwizardAppRule<HelloWorldConfiguration> RULE =
             new DropwizardAppRule<>(HelloWorldApplication.class,
                     ResourceHelpers.resourceFilePath("integration-test.yml"));
 

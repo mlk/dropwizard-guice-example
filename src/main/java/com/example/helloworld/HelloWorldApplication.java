@@ -1,6 +1,7 @@
 package com.example.helloworld;
 
 import com.example.helloworld.core.Saying;
+import com.example.helloworld.ducktape.DodgyGuiceAtmosphereObjectFactory;
 import com.example.helloworld.health.TemplateHealthCheck;
 import com.example.helloworld.legacy.ExampleHttpServlet;
 import com.example.helloworld.resources.HelloWorldChatResource;
@@ -35,10 +36,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
 	@Override
 	public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
+        // Static assets bundle.
 		bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
 
+        // Hibernate bundle
         bootstrap.addBundle(hibernate);
 
+        // Guice
         guiceBundle = GuiceBundle.<HelloWorldConfiguration>newBuilder()
 				.addModule(new HelloWorldModule(hibernate))
 				.enableAutoConfig(getClass().getPackage().getName())
@@ -55,12 +59,17 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public void run(HelloWorldConfiguration helloWorldConfiguration, Environment environment) throws Exception {
+        // Guiced health checks (at the moment the Guice bundle does not appear to support auto config of health checks)
         environment.healthChecks().register("template", guiceBundle.getInjector().getInstance(TemplateHealthCheck.class));
-        environment.getApplicationContext().addServlet(new ServletHolder(guiceBundle.getInjector().getInstance(ExampleHttpServlet.class)), "/legacy/servlet");
-        AtmosphereServlet servlet = new AtmosphereServlet();
 
+        // Legacy style servlets.
+        environment.getApplicationContext().addServlet(new ServletHolder(guiceBundle.getInjector().getInstance(ExampleHttpServlet.class)), "/legacy/servlet");
+
+        // Guiced Atmosphere (WebSockets)
+        AtmosphereServlet servlet = new AtmosphereServlet();
         servlet.framework().addInitParameter(ApplicationConfig.ANNOTATION_PACKAGE, HelloWorldChatResource.class.getPackage().getName());
         servlet.framework().addInitParameter(ApplicationConfig.WEBSOCKET_SUPPORT, "true");
+        servlet.framework().objectFactory(new DodgyGuiceAtmosphereObjectFactory(guiceBundle, servlet.framework().objectFactory()));
 
         ServletRegistration.Dynamic registration = environment.servlets().addServlet("atmosphere", servlet);
         registration.addMapping("/chat/*");

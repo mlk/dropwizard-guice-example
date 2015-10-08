@@ -2,6 +2,7 @@ package com.example.helloworld.resources;
 
 import com.example.helloworld.core.ChatMessage;
 import com.example.helloworld.services.ChatMessageEncoderDecoder;
+import com.example.helloworld.services.CounterService;
 import org.atmosphere.config.service.Disconnect;
 import org.atmosphere.config.service.ManagedService;
 import org.atmosphere.config.service.Message;
@@ -11,6 +12,7 @@ import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.io.IOException;
 
 /**
@@ -19,6 +21,13 @@ import java.io.IOException;
 @ManagedService(path = "/chat")
 public final class HelloWorldChatResource {
     private static final Logger logger = LoggerFactory.getLogger(ChatMessage.class);
+
+    private final CounterService counterService;
+
+    @Inject
+    public HelloWorldChatResource(CounterService counterService) {
+        this.counterService = counterService;
+    }
 
     /**
      * Invoked when the connection as been fully established and suspended, e.g ready for receiving messages.
@@ -55,6 +64,7 @@ public final class HelloWorldChatResource {
     @Message(encoders = {ChatMessageEncoderDecoder.class}, decoders = {ChatMessageEncoderDecoder.class})
     public final ChatMessage onMessage(final ChatMessage message) throws IOException{
         logger.info("{} just send {}", message.getOriginatingSystem(), message.getMessagePayload());
+        message.setMessagePayload(counterService.next() + " - " + message.getMessagePayload());
         return message;
     }
 

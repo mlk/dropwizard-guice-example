@@ -10,4 +10,8 @@ public class CounterService {
     public long next() {
         return counter.incrementAndGet();
     }
+
+    public void reset() {
+        counter.set(0);
+    }
 }

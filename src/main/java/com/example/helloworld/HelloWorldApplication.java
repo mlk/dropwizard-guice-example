@@ -2,7 +2,6 @@ package com.example.helloworld;
 
 import com.example.helloworld.core.Saying;
 import com.example.helloworld.ducktape.DodgyGuiceAtmosphereObjectFactory;
-import com.example.helloworld.health.TemplateHealthCheck;
 import com.example.helloworld.legacy.ExampleHttpServlet;
 import com.example.helloworld.resources.HelloWorldChatResource;
 import com.hubspot.dropwizard.guice.GuiceBundle;
@@ -59,9 +58,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public void run(HelloWorldConfiguration helloWorldConfiguration, Environment environment) throws Exception {
-        // Guiced health checks (at the moment the Guice bundle does not appear to support auto config of health checks)
-        environment.healthChecks().register("template", guiceBundle.getInjector().getInstance(TemplateHealthCheck.class));
-
         // Legacy style servlets.
         environment.getApplicationContext().addServlet(new ServletHolder(guiceBundle.getInjector().getInstance(ExampleHttpServlet.class)), "/legacy/servlet");
 

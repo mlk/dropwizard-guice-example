@@ -3,8 +3,10 @@ package com.example.helloworld.resources;
 import com.example.helloworld.HelloWorldApplication;
 import com.example.helloworld.HelloWorldConfiguration;
 import com.example.helloworld.core.Saying;
+import com.squarespace.jersey2.guice.BootstrapUtils;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit.DropwizardAppRule;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -26,6 +28,11 @@ public class ApiIntegrationTest {
     public final DropwizardAppRule<HelloWorldConfiguration> RULE =
             new DropwizardAppRule<>(HelloWorldApplication.class,
                     ResourceHelpers.resourceFilePath("integration-test.yml"));
+
+    @After
+    public void resetGuice() {
+        BootstrapUtils.reset();
+    }
 
     @Test
     public void whenLegacyServletCalledThenItIsUsed() {

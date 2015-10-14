@@ -12,7 +12,7 @@
             use: mvn dependency:tree
             to discover the exact jetty version used in any new version of DropWizard.
         -->
-        <dropwizard.version>0.8.3</dropwizard.version>
+        <dropwizard.version>0.8.4</dropwizard.version>
         <dropwizard.jetty.version>9.2.9.v20150224</dropwizard.jetty.version>
         <guice.version>4.0</guice.version>
         <jquery.version>2.1.1</jquery.version>

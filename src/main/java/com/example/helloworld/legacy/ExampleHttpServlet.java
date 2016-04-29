@@ -21,7 +21,7 @@ public class ExampleHttpServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setHeader("Content-Type", "text/plain");
         OutputStream os = resp.getOutputStream();
-        os.write(("Hello, I have been called " + counterService.next() + " time(s)").getBytes());
+        os.write(("Hello, I have been called " + counterService.next() + " time(s) on this server [" + req.getServerName() + "]").getBytes());
         os.close();
     }
 }

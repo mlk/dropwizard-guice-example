@@ -1,0 +1,23 @@
+LoadBalancer:
+  ports:
+  - 8080:8080
+  labels:
+    io.rancher.scheduler.global: 'true'
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - web:web
+  stdin_open: true
+web:
+  log_driver: ''
+  log_opt: {}
+  image: michaellee/dropwizard-guice-example
+  links:
+  - mysql:mysql
+mysql:
+  environment:
+    MYSQL_DATABASE: mydatabase
+    MYSQL_PASSWORD: password
+    MYSQL_ROOT_PASSWORD: password
+    MYSQL_USERNAME: test
+  image: mysql

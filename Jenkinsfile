@@ -6,5 +6,5 @@ node {
 	sh 'mvn clean package'
   }
   stage 'Build docker image'
-  mvn docker:buildImage
+  mvn docker:build
 }

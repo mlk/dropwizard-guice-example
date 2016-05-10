@@ -1,5 +1,9 @@
+stage 'Checkout'
+checkout scm
+stage 'Build application'
 docker.image('cloudbees/java-build-tools:0.0.6').inside {
-	checkout scm
-	stage 'Build Web App'
 	sh 'mvn clean package'
 }
+stage 'Build docker image'
+mvn docker:buildImage
+

@@ -1,5 +1,4 @@
 stage 'Checkout'
-node {
 node{
   def kubectl = env.KUBE_CONTROL
   def kubeServer = env.KUBE_SERVER

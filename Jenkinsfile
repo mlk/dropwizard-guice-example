@@ -6,7 +6,7 @@ node {
 	sh 'mvn clean package'
   }
   stage 'Build docker image'
-  def mvnHome = tool 'M3'
-  echo "${mvnHome}"
-  sh '${mvnHome}/bin/mvn docker:build'
+  def mvnHome = tools 'M3'
+  sh 'echo ${mvnHome}'
+  sh 'mvn docker:build'
 }

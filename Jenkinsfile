@@ -13,5 +13,5 @@ node{
   stage 'Build docker image'
   sh 'mvn docker:build'
 
-  sh "$kubectl --server=$kubeServer --username=$kubeUsername --password=$kubePassword create -f src/main/kube/full-stack.yml"
+  sh "$kubectl --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword create -f src/main/kube/full-stack.yml"
 }

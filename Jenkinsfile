@@ -12,6 +12,7 @@ node{
 
   stage 'Build docker image'
   sh 'mvn docker:build'
+  stage 'Deploy to TEST'
+  sh "$kubectl --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.yml"
 
-  sh "$kubectl --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword update -f src/main/kube/full-stack.yml"
 }

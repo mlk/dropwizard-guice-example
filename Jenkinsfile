@@ -4,6 +4,8 @@ node {
   stage 'Build application'
   docker.image('cloudbees/java-build-tools:0.0.6').inside {
     echo "Hello"
+    sh "echo hello"
+    echo "Bye"
   }
   // docker.image('cloudbees/java-build-tools:0.0.6').inside {
 	sh 'mvn clean package'

@@ -2,7 +2,7 @@ stage 'Checkout'
 node {
   checkout scm
   stage 'Build application'
-  docker.image('cloudbees/java-build-tools:0.0.6').inside {
+  docker.image('cloudbees/java-build-tools:0.0.6').inside('-u 100:50') {
     echo "Hello"
     sh "echo hello"
     echo "Bye"

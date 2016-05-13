@@ -23,8 +23,7 @@
         <dropwizard.guice.version>0.8.4.0</dropwizard.guice.version>
         <atmosphere.version>2.4.2</atmosphere.version>
 
-        <buildNumber>local</buildNumber>            
-        <buildBranch>local</buildBranch>            
+        <localTag>local</localTag>
     </properties>
 
 
@@ -175,7 +174,7 @@
                     <baseImage>java</baseImage>
                     <entryPoint>["/wait-for-it.sh" , "mysql:3306", "--", "java", "-jar", "/${project.build.finalName}.jar", "server", "/drop.yml"]</entryPoint>
                     <imageTags>
-                        <imageTag>${buildBranch}.${buildNumber}</imageTag>
+                        <imageTag>${localTag}</imageTag>
                     </imageTags>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>

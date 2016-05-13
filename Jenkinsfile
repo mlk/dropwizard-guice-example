@@ -4,6 +4,7 @@ node{
   def kubeServer = env.KUBE_SERVER
   def kubeUsername = env.KUBE_USERNAME
   def kubePassword = env.KUBE_PASSWORD  
+  def localTag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
   checkout scm
 
@@ -11,8 +12,7 @@ node{
   sh 'mvn clean package'
 
   stage 'Build docker image'
-  sh 'mvn docker:build -DbuildBranch=${env.BUILD_BRANCH} -DbuildNumber=${env.BUILD_NUMBER}'
-  sh ''
+  sh "mvn docker:build -DlocalTag=${localTag}"
   stage 'Deploy to TEST'
   sh "$kubectl --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.yml"
 

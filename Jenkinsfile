@@ -18,7 +18,7 @@ node{
 
   stage 'Validating image'
   echo 'Run validation here...'
-  stage push image
+  stage "Push image"
   sh "docker push michaellee/dropwizard-guice-example:${localTag}"
 
   stage 'Deploy to TEST'

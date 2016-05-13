@@ -11,7 +11,8 @@ node{
   sh 'mvn clean package'
 
   stage 'Build docker image'
-  sh 'mvn docker:build'
+  sh 'mvn docker:build -DbuildBranch=${env.BUILD_BRANCH} -DbuildNumber=${env.BUILD_NUMBER}'
+  sh ''
   stage 'Deploy to TEST'
   sh "$kubectl --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.yml"
 

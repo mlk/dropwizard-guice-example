@@ -22,6 +22,9 @@
         <mockito.version>1.10.19</mockito.version>
         <dropwizard.guice.version>0.8.4.0</dropwizard.guice.version>
         <atmosphere.version>2.4.2</atmosphere.version>
+
+        <buildNumber>local</buildNumber>            
+        <buildBranch>local</buildBranch>            
     </properties>
 
 
@@ -172,8 +175,7 @@
                     <baseImage>java</baseImage>
                     <entryPoint>["/wait-for-it.sh" , "mysql:3306", "--", "java", "-jar", "/${project.build.finalName}.jar", "server", "/drop.yml"]</entryPoint>
                     <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
+                        <imageTag>${buildBranch}.${buildNumber}</imageTag>
                     </imageTags>
                     <!-- copy the service's jar file from target into the root directory of the image -->
                     <resources>

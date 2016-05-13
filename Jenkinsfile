@@ -15,6 +15,12 @@ node{
 
   stage 'Build docker image'
   sh "mvn docker:build -DlocalTag=${localTag}"
+
+  stage 'Validating image'
+  echo 'Run validation here...'
+  stage push image
+  sh "docker push michaellee/dropwizard-guice-example:${localTag}"
+
   stage 'Deploy to TEST'
   sh "sed 's/IMAGE_TAG/${localTag}/g' src/main/kube/full-stack.yml > src/main/kube/full-stack.${localTag}.yml"
   sh "$kubectl --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.${localTag}.yml"

@@ -22,6 +22,7 @@ node{
   sh "docker push michaellee/dropwizard-guice-example:${localTag}"
 
   stage 'Deploy to TEST'
+  sh 'sleep 1m'
   sh "$kubectl --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword rolling-update dropwizard-application --image michaellee/dropwizard-guice-example:${localTag}"
 
   sh "sed 's/IMAGE_TAG/${localTag}/g' src/main/kube/full-stack.yml > src/main/kube/full-stack.${localTag}.yml"

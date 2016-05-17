@@ -24,5 +24,4 @@ Atmosphere has a Guice bundle which I attempted to use but spat out a bunch of e
 However I'm not convinced this is the correct way to do this. Please do fork and update.
 
 
-
 [![Build Status](https://travis-ci.org/mlk/dropwizard-guice-example.svg?branch=master)](https://travis-ci.org/mlk/dropwizard-guice-example)

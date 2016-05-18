@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: dropwizard-application
-        image: michaellee/dropwizard-guice-example:IMAGE_TAG
+        image: 192.168.99.100:18443/michaellee/dropwizard-guice-example:IMAGE_TAG
 ---
 apiVersion: v1
 kind: ReplicationController

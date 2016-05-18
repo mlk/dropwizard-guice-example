@@ -19,7 +19,7 @@ node{
   stage 'Validating image'
   echo 'Run validation here...'
   stage "Push image"
-  sh "docker push michaellee/dropwizard-guice-example:${localTag}"
+  sh "docker push 192.168.99.100:18443/michaellee/dropwizard-guice-example:${localTag}"
 
   stage 'Deploy to TEST'
   sh 'sleep 3m'
@@ -40,7 +40,7 @@ node{
 
     sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.${localTag}.yml"
 
-    sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword rolling-update dropwizard-application --image michaellee/dropwizard-guice-example:${localTag}  --image-pull-policy=IfNotPresent"
+    sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword rolling-update dropwizard-application --image 192.168.99.100:18443/michaellee/dropwizard-guice-example:${localTag}  --image-pull-policy=IfNotPresent"
 
     sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword get services/my-service --output json | jq '.spec.ports[0].nodePort' > THE_PORT"
 

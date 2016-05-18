@@ -34,7 +34,7 @@ node{
   def port = readFile 'THE_PORT'
   echo port
 
-  Stage "Promote To Live?"
+  stage "Promote To Live?"
   input "Deploy to live?"
 
   sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.${localTag}.yml"

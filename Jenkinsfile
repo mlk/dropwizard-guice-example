@@ -35,16 +35,17 @@ node{
   echo port
 
   stage "Promote To Live?"
-  timeout(time: 7, unit: 'DAYS')
-  input "Deploy to live?"
+  timeout(time: 7, unit: 'DAYS') {
+    input "Deploy to live?"
 
-  sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.${localTag}.yml"
+    sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.${localTag}.yml"
 
-  sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword rolling-update dropwizard-application --image michaellee/dropwizard-guice-example:${localTag}  --image-pull-policy=IfNotPresent"
+    sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword rolling-update dropwizard-application --image michaellee/dropwizard-guice-example:${localTag}  --image-pull-policy=IfNotPresent"
 
-  sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword get services/my-service --output json | jq '.spec.ports[0].nodePort' > THE_PORT"
+    sh "$kubectl --namespace=live --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword get services/my-service --output json | jq '.spec.ports[0].nodePort' > THE_PORT"
 
-  def livePort = readFile 'THE_PORT'
-  echo livePort
+    def livePort = readFile 'THE_PORT'
+    echo livePort
+  }
 }
 

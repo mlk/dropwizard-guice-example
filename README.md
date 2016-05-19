@@ -12,9 +12,9 @@ The Jenkinsfile assumes the following:
 * You have a local nexus with docker support running on `192.168.99.100:18443`
  * you have set up  secrets for Kubernates (with a default docker install: `kubectl --namespace=live create secret docker-registry myregistrykey --docker-server=192.168.99.100:18443 --docker-username=admin --docker-password=admin123 --docker-email=DOCKER_EMAIL@example.com && kubectl --namespace=default create secret docker-registry myregistrykey --docker-server=192.168.99.100:18443 --docker-username=admin --docker-password=admin123 --docker-email=DOCKER_EMAIL@example.com`)
  * you have either
-  * used a proper CA
-  * Installed the CA in the right location on each of the hosts
-  * Changed docker to ignore `192.168.99.100:18443` by adding `--insecure-registry=192.168.99.100:18443` to the docker deamon. Using RancherOS this is done using the following command `sudo ros c set rancher.docker.extra_args ['--insecure-registry=192.168.99.100:18443'] && sudo system-docker restart docker`
+   * used a proper CA
+   * Installed the CA in the right location on each of the hosts
+   * Changed docker to ignore `192.168.99.100:18443` by adding `--insecure-registry=192.168.99.100:18443` to the docker deamon. Using RancherOS this is done using the following command `sudo ros c set rancher.docker.extra_args ['--insecure-registry=192.168.99.100:18443'] && sudo system-docker restart docker`
 * You having logged into `192.168.99.100:18443` on docker on the jenkins box as the jenkins user.
 
 **Gothca's**
@@ -30,6 +30,7 @@ While this branch has surved my needs, it has left a number of questions and imp
 * How should the database be handled? 
  * Not HA - What storage should be used?
  * Built via Hibernate (is that good for production?)
+* The Chat page (WebSockets with Atmosphere) is not clustered. This [can be done](https://github.com/Atmosphere/atmosphere/wiki/Configuring-Atmosphere-for-the-Cloud), but was out of scope for this work.
 
 
 Building & running locally
@@ -39,11 +40,5 @@ Building & running locally
 mvn clean package
 java -jar target/hello-guice-*.jar server hello-world.yml
 ```
-
-Atmosphere, Guice and Dropwizard
---------------------------------
-Atmosphere has a Guice bundle which I attempted to use but spat out a bunch of errors. As such I ended up writing basic Guice AtmosphereObjectFactory.
-However I'm not convinced this is the correct way to do this. Please do fork and update.
-
 
 [![Build Status](https://travis-ci.org/mlk/dropwizard-guice-example.svg?branch=master)](https://travis-ci.org/mlk/dropwizard-guice-example)

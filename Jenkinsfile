@@ -26,7 +26,7 @@ node{
   sh "sed 's/IMAGE_TAG/${localTag}/g' src/main/kube/full-stack.yml > src/main/kube/full-stack.${localTag}.yml"
   sh "$kubectl --namespace=default --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.${localTag}.yml"
 
-  sh "$kubectl --namespace=default --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword rolling-update dropwizard-application --image michaellee/dropwizard-guice-example:${localTag}  --image-pull-policy=IfNotPresent"
+  sh "$kubectl --namespace=default --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword rolling-update dropwizard-application --image 192.168.99.100:18443/michaellee/michaellee/dropwizard-guice-example:${localTag}  --image-pull-policy=IfNotPresent"
 
   sh "$kubectl --namespace=default --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword get services/my-service --output json | jq '.spec.ports[0].nodePort' > THE_PORT"
 

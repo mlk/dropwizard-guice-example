@@ -22,7 +22,6 @@ node{
   sh "docker push 192.168.99.100:18443/michaellee/dropwizard-guice-example:${localTag}"
 
   stage 'Deploy to TEST'
-  sh 'sleep 3m'
 
   sh "sed 's/IMAGE_TAG/${localTag}/g' src/main/kube/full-stack.yml > src/main/kube/full-stack.${localTag}.yml"
   sh "$kubectl --namespace=default --insecure-skip-tls-verify=true --server=$kubeServer --username=$kubeUsername --password=$kubePassword apply -f src/main/kube/full-stack.${localTag}.yml"

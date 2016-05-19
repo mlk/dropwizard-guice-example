@@ -14,6 +14,8 @@ spec:
       containers:
       - name: dropwizard-application
         image: 192.168.99.100:18443/michaellee/dropwizard-guice-example:IMAGE_TAG
+      imagePullSecrets:
+      - name: myregistrykey
 ---
 apiVersion: v1
 kind: ReplicationController

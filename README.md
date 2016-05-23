@@ -20,6 +20,7 @@ The Jenkinsfile assumes the following:
 **Gothca's**
 
 * Kube requires the regisrty key to be set up of each name space.
+* `kubectl create secret` does not work in the rancher `kubectl` tab.
 
 **TODOs**
 While this branch has surved my needs, it has left a number of questions and improvements that I am unlikely to look into:

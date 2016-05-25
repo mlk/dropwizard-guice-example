@@ -1,27 +1,35 @@
 dropwizard-guice-example
 ========================
 
-This is an example of using Dropwizard with:
+This branch is to play with using Jenkins with a Jenkinsfile to defined the build pipeline and deploy the stack onto a Kubernates cluster.
 
- * Google Guice (4.0)
- * Static Resources 
- * Project Lombok
- * Hibernate (using Derby as the data store)
- * Serving legacy servlets
- * Serving (Guiced up) WebSockets with Atmosphere
+The Jenkinsfile assumes the following:
 
-The primary goal of this repo is to help me to get my head round using Dropwizard with Guice. 
+* Docker is installed and has the DOCKER_* enviroment variables set correctly in Jenkins.
+* You have Maven installed on the Jenkins box
+* You have installed the Kubernates kubectl binaries on the Jenkins box.
+* You have set up the `KUBE_CONTROL` (binary location), `KUBE_SERVER`, `KUBE_USERNAME` and `KUBE_PASSWORD` enviroment variables set correctly in Jenkins. This is not production ready, and should use the kube config file pushed onto the jenkins box some how.
+* You have a local nexus with docker support running on `192.168.99.100:18443`
+ * you have set up  secrets for Kubernates (with a default docker install: `kubectl --namespace=live create secret docker-registry myregistrykey --docker-server=192.168.99.100:18443 --docker-username=admin --docker-password=admin123 --docker-email=DOCKER_EMAIL@example.com && kubectl --namespace=default create secret docker-registry myregistrykey --docker-server=192.168.99.100:18443 --docker-username=admin --docker-password=admin123 --docker-email=DOCKER_EMAIL@example.com`)
+ * you have either
+   * used a proper CA.
+   * Installed the self-sign'ed cert in the right location on each of the hosts.
+   * Changed docker to ignore `192.168.99.100:18443` by adding `--insecure-registry=192.168.99.100:18443` to the docker deamon. Using RancherOS this is done using the following command `sudo ros c set rancher.docker.extra_args ['--insecure-registry=192.168.99.100:18443'] && sudo system-docker restart docker`
+* You having logged into `192.168.99.100:18443` on docker on the jenkins box as the jenkins user.
 
+**Gothca's**
 
-```
-mvn clean package
-java -jar target/hello-guice-*.jar server hello-world.yml
-```
+* Kube requires the regisrty key to be set up of each name space.
+* `kubectl create secret` does not work in the rancher `kubectl` tab.
 
-Atmosphere, Guice and Dropwizard
---------------------------------
-Atmosphere has a Guice bundle which I attempted to use but spat out a bunch of errors. As such I ended up writing basic Guice AtmosphereObjectFactory.
-However I'm not convinced this is the correct way to do this. Please do fork and update.
+**TODOs**
+While this branch has surved my needs, it has left a number of questions and improvements that I am unlikely to look into:
 
+* Not use the KUBE_* enveroment variables and instead use a jenkins aware `tool` with the configuration file pushed to it.
+* Question how the docker bit works. What about with slaves, should this really need the box to be pre-logged into the nexus repo?
+* What should happen to the mangled full-stack.yml file?
+* How should the database be handled? 
+ * Not HA - What storage should be used?
+ * Built via Hibernate (is that good for production?)
+* The Chat page (WebSockets with Atmosphere) is not clustered. This [can be done](https://github.com/Atmosphere/atmosphere/wiki/Configuring-Atmosphere-for-the-Cloud), but was out of scope for this work.
 
-[![Build Status](https://travis-ci.org/mlk/dropwizard-guice-example.svg?branch=master)](https://travis-ci.org/mlk/dropwizard-guice-example)

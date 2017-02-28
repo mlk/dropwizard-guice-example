@@ -26,3 +26,5 @@ However I'm not convinced this is the correct way to do this. Please do fork and
 
 
 [![Build Status](https://travis-ci.org/mlk/dropwizard-guice-example.svg?branch=master)](https://travis-ci.org/mlk/dropwizard-guice-example)
+
+.
